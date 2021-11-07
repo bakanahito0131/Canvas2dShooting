@@ -1,4 +1,6 @@
+
 <html>
+    <body style="margin:0"></body>
     <!-- Canvas と JavaScript で 2Dシューティング -->
 
 
@@ -12,14 +14,13 @@
         //変数で使ってる略 s → サイズ w → 横幅 h → 高さ e → CPU(enemy) x → x座標 y → y座標 c → canvas b → 弾(bullet) たまにかぶってるのもあるごめん
         var canvas = document.getElementById("test")//id 'can'で HTML と canvas を 紐づけ
         var context = canvas.getContext("2d")//そのままでok
-        var dw = screen.width //ディスプレイサイズ横
-        var dh = screen.height//ディスプレイサイズ縦
+        var iw = window.innerWidth
+        var ih = window.innerHeight
+        var cw = iw
+        var ch = ih
 
-        var cw = dw
-        var ch = dh
-
-        canvas.width = cw//canvasサイズの指定 x
-        canvas.height = ch//canvasサイズの指定 y
+        canvas.width = iw//canvasサイズの指定 x
+        canvas.height = ih//canvasサイズの指定 y
 
         var py = 0//プレーヤーの y 座標
         var px = 0//プレーヤーの x 座標
@@ -165,6 +166,61 @@
         var reverse3 = false
 
         var LockCoin = false
+
+        window.onresize = function(){//画面サイズが変更されたときの値の更新
+            iw = window.innerWidth
+            ih = window.innerHeight
+            canvas.width = iw
+            canvas.height = ih
+            cw = iw
+            ch = ih
+            py = 0//プレーヤーの y 座標
+            px = 0//プレーヤーの x 座標
+            ps = cw*0.05//プレーヤーサイズ x
+            pHP = 50//プレーヤーのHP
+            score = 0//得点
+
+            ey = ch*0.1//CPU0x座標
+            ex = cw*0.5//CPU0y座標
+            es = cw*0.05//CPU0サイズ
+            eHP = 50//CPU0のHP
+
+            ey2 = ch*0.1
+            ex2 = cw*0.5
+            es2 = cw*0.05
+            eHP2 = 75
+
+            ey3 = ch*0.2
+            ex3 = cw*0.2
+            ex3b = cw*0.8
+            es3 = cw*0.04
+            es3b = cw*0.04
+            eHP3 = 40
+            eHP3b = 40
+
+            ey4 = ch*0.07
+            ex4 = cw*0.5
+            es4 = cw*0.06
+            eHP4 = 100
+
+            bs = cw*0.02//弾幕サイズ
+
+            speed0 = 0//自機弾幕速度
+            speed01 = cw*0.008//プレーヤーの速度
+            eSpeed0 = 0//CPU0弾幕スピード
+            eSpeed2 = 0//CPU2弾幕スピード
+            eSpeed3 = 0
+            eSpeed3b = 0
+            eSpeed4 = 0
+            eSpeed4b = 0
+
+            ts = cw * 0.02//テキストサイズ
+            tx = cw * 0.01//テキスト1 位置 x
+            ty = ch * 0.05//テキスト1 位置 y
+
+            tx2 = cw * 0.9//テキスト2 位置 x
+            
+        }
 
         //キーが押されたことを検知する
         document.addEventListener("keydown", function(event0){
@@ -1650,7 +1706,7 @@
             link.href = URL.createObjectURL(blob);
             link.download = '名無しスコア:'+score+'.txt';
             link.click();
-            alert("良いスコアが出たらダウンロードされたファイルはスコアフォルダに入れてください")
+            alert("GameOver")
         }
 
     </script>
